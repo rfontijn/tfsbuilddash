@@ -1,0 +1,88 @@
+﻿<views:MvxWpfView  x:Class="TfsBuildMonitor.WPF.Views.BuildMonitorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:views="clr-namespace:MvvmCross.Wpf.Views;assembly=MvvmCross.Wpf"
+             xmlns:viewModels="clr-namespace:TfsBuildMonitor.Core.ViewModels;assembly=TfsBuildMonitor.Core"
+             xmlns:converters="clr-namespace:TfsBuildMonitor.WPF.Converters"
+             d:DesignHeight="300" d:DesignWidth="300" Background="#3E3737" >
+
+    <views:MvxWpfView.Resources>
+        <DataTemplate DataType="{x:Type viewModels:BuildDefinitionViewModel}" x:Key="BuildTemplate">
+            <DataTemplate.Resources>
+                <converters:StatusToColorConverter x:Key="StatusToColorConverter"></converters:StatusToColorConverter>
+            </DataTemplate.Resources>
+            <Border SnapsToDevicePixels="True" x:Name="MainBorder" Background="White" CornerRadius="10" BorderBrush="{Binding Status, Converter={StaticResource StatusToColorConverter}}" BorderThickness="3 3 3 3" Width="600" MinHeight="200" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Rectangle x:Name="BorderHeading" Grid.ColumnSpan="2" Fill="{Binding Status, Converter={StaticResource StatusToColorConverter}}" HorizontalAlignment="Stretch" />
+                    
+                    <TextBlock Text="{Binding Name}" Margin="10 2" FontWeight="Bold" FontSize="32" Grid.Row="1" Grid.ColumnSpan="2"
+                               Grid.Column="0" TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                               Text="{Binding LastRequestedBy, StringFormat=Requested by: {0:C}}" Margin="10 1" FontSize="16" FontWeight="DemiBold"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0"
+                               Text="{Binding LastRequested, StringFormat=Requested at: {0:d-M-yyyy H:mm}}" Margin="10 1" FontSize="16" FontWeight="DemiBold"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0"
+                               Text="{Binding LastChange, TargetNullValue={}}" Margin="10 4 10 10" TextWrapping="Wrap" FontSize="14" FontStyle="Italic"/>
+
+                    <Image Grid.Column="1" Grid.Row="2" Grid.RowSpan="3"
+                        Source="{Binding UserImage}" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Height="48" Width="48" Stretch="UniformToFill" Margin="10 0"/>
+
+                </Grid>
+            </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Status}" Value="{x:Null}">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard Name="highlight">
+                            <Storyboard>
+                                <ColorAnimation 
+                      Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)"
+                      Storyboard.TargetName="BorderHeading"
+                      From="LightBlue" To="SteelBlue" Duration="0:0:1.5" 
+                      AutoReverse="True" RepeatBehavior="Forever" />
+                                <ColorAnimation 
+                      Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"
+                      Storyboard.TargetName="MainBorder"
+                      From="LightBlue" To="SteelBlue" Duration="0:0:1.5" 
+                      AutoReverse="True" RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                    <DataTrigger.ExitActions>
+                        <StopStoryboard BeginStoryboardName="highlight"/>
+                    </DataTrigger.ExitActions>
+                </DataTrigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+
+    </views:MvxWpfView.Resources>
+    <DockPanel Margin="10" LastChildFill="True">
+
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Visibility="Collapsed">
+            <Button Command="{Binding RefreshCommand}">Refresh</Button>
+        </StackPanel>
+
+        <ItemsControl ItemsSource="{Binding Builds}" ItemTemplate="{StaticResource BuildTemplate}" HorizontalAlignment="Center">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DockPanel>
+</views:MvxWpfView>

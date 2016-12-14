@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/TfsBuildMonitor.Core/bin/Debug
+/TfsBuildMonitor.Core/obj/Debug
+/TfsBuildMonitor/TfsBuildMonitor.WPF/bin/Debug
+/TfsBuildMonitor/TfsBuildMonitor.WPF/obj/Debug

@@ -6,3 +6,5 @@
 /TfsBuildMonitor.Core/obj/Debug
 /TfsBuildMonitor/TfsBuildMonitor.WPF/bin/Debug
 /TfsBuildMonitor/TfsBuildMonitor.WPF/obj/Debug
+/TfsBuildMonitor/TfsBuildMonitor.WPF/App.config
+/packages

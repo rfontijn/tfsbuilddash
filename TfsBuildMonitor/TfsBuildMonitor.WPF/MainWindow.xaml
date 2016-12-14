@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TfsBuildMonitor.WPF"
         mc:Ignorable="d" Icon="{x:Null}" WindowStyle="None"
-        Title="Cito Build Monitor" Height="1200" Width="1920" WindowState="Normal">
+        Title="Cito Build Monitor" Height="1200" Width="1920" WindowState="Maximized">
     <Grid>
         
     </Grid>

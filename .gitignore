@@ -4,7 +4,8 @@
 
 /TfsBuildMonitor.Core/bin/Debug
 /TfsBuildMonitor.Core/obj/Debug
+/TfsBuildMonitor/TfsBuildMonitor.WPF/appsettings.config
 /TfsBuildMonitor/TfsBuildMonitor.WPF/bin/Debug
 /TfsBuildMonitor/TfsBuildMonitor.WPF/obj/Debug
-/TfsBuildMonitor/TfsBuildMonitor.WPF/App.config
 /packages
+/.vs/TfsBuildMonitor/v14/.suo

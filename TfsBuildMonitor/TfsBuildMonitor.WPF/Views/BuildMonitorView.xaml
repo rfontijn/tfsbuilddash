@@ -14,7 +14,9 @@
             <DataTemplate.Resources>
                 <converters:StatusToColorConverter x:Key="StatusToColorConverter"></converters:StatusToColorConverter>
             </DataTemplate.Resources>
-            <Border SnapsToDevicePixels="True" x:Name="MainBorder" Background="White" CornerRadius="10" BorderBrush="{Binding Status, Converter={StaticResource StatusToColorConverter}}" BorderThickness="3 3 3 3" Width="600" MinHeight="200" Margin="10">
+            <Border SnapsToDevicePixels="True" x:Name="MainBorder" Background="White" CornerRadius="10" BorderBrush="{Binding Status, Converter={StaticResource StatusToColorConverter}}" 
+                    BorderThickness="3 3 3 3" 
+                    Width="600" Height="200" Margin="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
@@ -25,8 +27,8 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="68"/>
                     </Grid.ColumnDefinitions>
                     
                     <Rectangle x:Name="BorderHeading" Grid.ColumnSpan="2" Fill="{Binding Status, Converter={StaticResource StatusToColorConverter}}" HorizontalAlignment="Stretch" />
@@ -37,9 +39,10 @@
                                Text="{Binding LastRequestedBy, StringFormat=Requested by: {0:C}}" Margin="10 1" FontSize="16" FontWeight="DemiBold"/>
                     <TextBlock Grid.Row="3" Grid.Column="0"
                                Text="{Binding LastRequested, StringFormat=Requested at: {0:d-M-yyyy H:mm}}" Margin="10 1" FontSize="16" FontWeight="DemiBold"/>
-                    <TextBlock Grid.Row="4" Grid.Column="0"
-                               Text="{Binding LastChange, TargetNullValue={}}" Margin="10 4 10 10" TextWrapping="Wrap" FontSize="14" FontStyle="Italic"/>
-
+                    <TextBlock Grid.Row="4" Grid.Column="0" TextWrapping="Wrap"
+                               Text="{Binding LastChange, TargetNullValue={}}" 
+                               Margin="10 4 10 10"  FontSize="14" FontStyle="Italic"/>
+                    
                     <Image Grid.Column="1" Grid.Row="2" Grid.RowSpan="3"
                         Source="{Binding UserImage}" DockPanel.Dock="Bottom" HorizontalAlignment="Right" Height="48" Width="48" Stretch="UniformToFill" Margin="10 0"/>
 
